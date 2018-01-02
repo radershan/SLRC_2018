@@ -2,7 +2,6 @@
 int leftMotorA =4;
 int leftMotorB =3;
 int leftMotorE =2;
-
 int rightMotorA =5;
 int rightMotorB =6;
 int rightMotorE =7;
@@ -14,6 +13,18 @@ int trigPinL = 33;
 int echoPinL = 32;
 int trigPinR = 37;
 int echoPinR = 36;
+
+//Encoder
+int leftA =46;
+int leftB =47;
+int rightA =48;
+int rightB =49;
+bool rightState;
+bool rightLState;
+bool leftState;
+bool leftLState;
+int leftCounter =0;
+int rightCounter =0;
 
 void setup() {
 Serial.begin(9600);
@@ -33,15 +44,23 @@ pinMode(echoPinL, INPUT);
 pinMode(trigPinR, OUTPUT);
 pinMode(echoPinR, INPUT);
 
+//Encoder
+pinMode(leftA,INPUT);
+pinMode(rightA,INPUT);
+pinMode(leftB,INPUT);
+pinMode(rightB,INPUT);
+
+leftLState = digitalRead(leftA);
+rightLState = digitalRead(rightA);
 }
 
 
 void loop() {
- Serial.print("Front : ");
- Serial.println(Distance(trigPinF,echoPinF));
+ Drive(-200,-200);
+ EncoderL();
  Serial.print("Left : ");
- Serial.println(Distance(trigPinL,echoPinL));
- Serial.print("Right : ");
- Serial.println(Distance(trigPinR,echoPinR));
- delay(2000);
+ Serial.print(leftCounter);
+ EncoderR();
+ Serial.print("|| rightt : ");
+ Serial.println(rightCounter);
 }
