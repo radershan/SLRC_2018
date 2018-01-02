@@ -3,7 +3,6 @@
 int leftMotorA =4;
 int leftMotorB =3;
 int leftMotorE =2;
-
 int rightMotorA =5;
 int rightMotorB =6;
 int rightMotorE =7;
@@ -16,7 +15,8 @@ int echoPinL = 32;
 int trigPinR = 37;
 int echoPinR = 36;
 
-//Line_Follower
+
+ //Line_Follower
 #include <QTRSensors.h>
 #define NUM_SENSORS   8     
 #define TIMEOUT       2500  
@@ -29,6 +29,19 @@ int pos;
 float lineError;
 float lineLastError;
 float lineKp=0.01;
+
+//Encoder
+int leftA =46;
+int leftB =47;
+int rightA =48;
+int rightB =49;
+bool rightState;
+bool rightLState;
+bool leftState;
+bool leftLState;
+int leftCounter =0;
+int rightCounter =0;
+
 
 void setup() {
 Serial.begin(9600);
@@ -48,12 +61,26 @@ pinMode(echoPinL, INPUT);
 pinMode(trigPinR, OUTPUT);
 pinMode(echoPinR, INPUT);
 
+
+
 //Line_Follower
 Qtr_Calibration();
+
+//Encoder
+pinMode(leftA,INPUT);
+pinMode(rightA,INPUT);
+pinMode(leftB,INPUT);
+pinMode(rightB,INPUT);
+
+leftLState = digitalRead(leftA);
+rightLState = digitalRead(rightA);
+
 }
 
 
 void loop() {
+
 Read_Line();
  
+
 }
