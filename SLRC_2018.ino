@@ -21,7 +21,7 @@ int echoPinR = 36;
 #define NUM_SENSORS   8     
 #define TIMEOUT       2500  
 #define EMITTER_PIN   2     
-QTRSensorsRC qtrrc((unsigned char[]) {14, 15, 16, 17, 18, 19, 20, 21},
+QTRSensorsRC qtrrc((unsigned char[]) {39,41,43,45,47,49,51,53},
   NUM_SENSORS, TIMEOUT, EMITTER_PIN); 
 unsigned int sensorValues[NUM_SENSORS];
 
@@ -31,10 +31,10 @@ float lineLastError;
 float lineKp=0.01;
 
 //Encoder
-int leftA =46;
-int leftB =47;
-int rightA =48;
-int rightB =49;
+int leftA =18;
+int leftB =19;
+int rightA =20;
+int rightB =21;
 bool rightState;
 bool rightLState;
 bool leftState;
