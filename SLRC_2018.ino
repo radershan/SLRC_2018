@@ -21,7 +21,6 @@ Serial.begin(9600);
 pinMode(leftMotorA,OUTPUT);
 pinMode(leftMotorB,OUTPUT);
 pinMode(leftMotorE,OUTPUT);
-
 pinMode(rightMotorA,OUTPUT);
 pinMode(rightMotorB,OUTPUT);
 pinMode(rightMotorE,OUTPUT);
