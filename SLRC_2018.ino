@@ -1,4 +1,7 @@
-
+//Swithces
+int switch1 = 8;
+int switch2 = 9;
+int switch3 =10;
 //Motor_Drive
 int leftMotorA =4;
 int leftMotorB =3;
@@ -31,20 +34,26 @@ float lineLastError;
 float lineKp=0.01;
 
 //Encoder
-int leftA =18;
-int leftB =19;
-int rightA =20;
-int rightB =21;
-bool rightState;
-bool rightLState;
-bool leftState;
-bool leftLState;
+int leftA =20;
+int leftB =21;
+int rightA =18;
+int rightB =19;
+volatile byte rightBState;
+volatile byte leftBState;
+
 int leftCounter =0;
 int rightCounter =0;
+int turningLeftCounter = 200;
+bool turningLeft = false;
 
 
 void setup() {
 Serial.begin(9600);
+//Switches
+pinMode(switch1,INPUT);
+pinMode(switch2,INPUT);
+pinMode(switch3,INPUT);
+
 //Motor_Drive
 pinMode(leftMotorA,OUTPUT);
 pinMode(leftMotorB,OUTPUT);
@@ -63,24 +72,25 @@ pinMode(echoPinR, INPUT);
 
 
 
-//Line_Follower
-Qtr_Calibration();
+
 
 //Encoder
-pinMode(leftA,INPUT);
-pinMode(rightA,INPUT);
-pinMode(leftB,INPUT);
-pinMode(rightB,INPUT);
+pinMode(leftA,INPUT_PULLUP);
+pinMode(rightA,INPUT_PULLUP);
+pinMode(leftB,INPUT_PULLUP);
+pinMode(rightB,INPUT_PULLUP);
 
-leftLState = digitalRead(leftA);
-rightLState = digitalRead(rightA);
 
+
+
+
+turnLeft();
 }
 
 
 void loop() {
-
-Read_Line();
- 
+if(digitalRead(switch1)==HIGH){
+  Serial.println(leftCounter);
+  }
 
 }
