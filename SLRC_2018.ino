@@ -37,6 +37,12 @@ int  initalspeed=100;
 int MaxSpeed =150;
 int MinSpeed=50;
 
+//wallfollower
+float wallError;
+float wallLastError;
+float wallKp=0.06;
+float wallKd=5;
+
 //Encoder
 int leftA =20;
 int leftB =21;
@@ -87,15 +93,15 @@ pinMode(rightB,INPUT_PULLUP);
 
 
 
-Qtr_Calibration();
+//Qtr_Calibration();
 }
 
 
 void loop() {
 
 //Drive(200,200);
-Pid_Line();
+//Pid_Line();
 //delay(100);
-
+Wall_Follow();
 
 }
