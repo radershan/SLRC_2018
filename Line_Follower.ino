@@ -6,10 +6,10 @@ void Qtr_Calibration()
   digitalWrite(13, HIGH);    
   for (int i = 0; i < 400; i++)  
   {
-    qtrrc.calibrate();       
+    qtrrc.calibrate(); 
   }
   digitalWrite(13, LOW);     
-  for (int i = 0; i < NUM_SENSORS; i++)
+  /*for (int i = 0; i < NUM_SENSORS; i++)
   {
     Serial.print(qtrrc.calibratedMinimumOn[i]);
     Serial.print(' ');
@@ -21,7 +21,7 @@ void Qtr_Calibration()
   {
     Serial.print(qtrrc.calibratedMaximumOn[i]);
     Serial.print(' ');
-  }
+  }*/
 }
  
   
@@ -55,12 +55,14 @@ void Pid_Line(){
   if (lSpeed > MaxSpeed ) lSpeed = MaxSpeed; // prevent the motor from going beyond max speed
   if (rSpeed < MinSpeed) rSpeed = MinSpeed; // keep the motor speed positive
   if (lSpeed < MinSpeed) lSpeed = MinSpeed; // keep the motor speed 
- // Serial.print(rSpeed);
- // Serial.print("  ");
- // Serial.print(lSpeed);
+ Serial.print(rSpeed);
+ Serial.print("  ");
+  Serial.print(lSpeed);
  // Serial.print('\t');
- // Serial.println();
+  Serial.println();
   Drive(lSpeed,rSpeed);
+  delay(10);
+  Drive(0,0);
   //Drive(200,200);
   
   

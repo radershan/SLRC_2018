@@ -33,9 +33,9 @@ float lineError;
 float lineLastError;
 float lineKp=0.06;
 float lineKd=4;
-int  initalspeed=50;
-int MaxSpeed =100;
-int MinSpeed=0;
+int  initalspeed=100;
+int MaxSpeed =150;
+int MinSpeed=50;
 
 //Encoder
 int leftA =20;
@@ -87,9 +87,7 @@ pinMode(rightB,INPUT_PULLUP);
 
 
 
-
-
-turnLeft();
+Qtr_Calibration();
 }
 
 
