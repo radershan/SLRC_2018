@@ -30,29 +30,38 @@ void Qtr_Calibration()
   //  qtrrc.read(sensorValues); instead of unsigned int position = qtrrc.readLine(sensorValues);
   unsigned int position = qtrrc.readLine(sensorValues);
   pos=position;
-  for (unsigned char i = 0; i < NUM_SENSORS; i++)
+  /*for (unsigned char i = 0; i < NUM_SENSORS; i++)
   {
     Serial.print(sensorValues[i]);
     Serial.print('\t');
   }
   Serial.println(position); 
-  delay(250);
+  delay(250);*/
 }
 
 void Pid_Line(){
   Read_Line();
   lineError=3200-pos;
-  Serial.print(lineError);
-  Serial.print('\t');
-  int  initalspeed=150;
-  float espeed=lineKp*lineError;
-  int rspeeed=initalspeed+espeed;
-  int lspeed=initalspeed-espeed;
+ // Serial.print(lineError);
+ // Serial.print('\t');
+ 
+  float espeed=(lineKp*lineError)+lineKd*(lineError-lineLastError);
+  int rSpeed=initalspeed+espeed;
+  int lSpeed=initalspeed-espeed;
   lineLastError=lineError;
-  Serial.print(rspeeed);
-  Serial.print('\t');
-  Serial.print(lspeed);
-  Serial.print('\t');
-  Serial.println();
+  
+  
+  if (rSpeed > MaxSpeed ) rSpeed = MaxSpeed; // prevent the motor from going beyond max speed
+  if (lSpeed > MaxSpeed ) lSpeed = MaxSpeed; // prevent the motor from going beyond max speed
+  if (rSpeed < MinSpeed) rSpeed = MinSpeed; // keep the motor speed positive
+  if (lSpeed < MinSpeed) lSpeed = MinSpeed; // keep the motor speed 
+ // Serial.print(rSpeed);
+ // Serial.print("  ");
+ // Serial.print(lSpeed);
+ // Serial.print('\t');
+ // Serial.println();
+  Drive(lSpeed,rSpeed);
+  //Drive(200,200);
+  
   
 }

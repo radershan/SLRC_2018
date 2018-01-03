@@ -31,7 +31,11 @@ unsigned int sensorValues[NUM_SENSORS];
 int pos;
 float lineError;
 float lineLastError;
-float lineKp=0.01;
+float lineKp=0.06;
+float lineKd=4;
+int  initalspeed=50;
+int MaxSpeed =100;
+int MinSpeed=0;
 
 //Encoder
 int leftA =20;
@@ -90,8 +94,10 @@ turnLeft();
 
 
 void loop() {
-if(digitalRead(switch1)==HIGH){
-  Serial.println(leftCounter);
-  }
+
+//Drive(200,200);
+Pid_Line();
+//delay(100);
+
 
 }
