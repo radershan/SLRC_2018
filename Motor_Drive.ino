@@ -25,6 +25,13 @@ void Drive(int leftSpeed, int rightSpeed){
     digitalWrite(rightMotorB,HIGH);
     }
 
-  analogWrite(leftMotorE,abs(leftSpeed));
+  
+  if (leftSpeed==0 and rightSpeed == 0){
+    digitalWrite(leftMotorE,HIGH);
+    digitalWrite(rightMotorE,HIGH);
+    }
+  else{
+    analogWrite(leftMotorE,abs(leftSpeed));
   analogWrite(rightMotorE,abs(rightSpeed));
+    }
   }
