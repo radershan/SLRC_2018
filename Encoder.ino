@@ -1,25 +1,48 @@
 void turnLeft(){
-  attachInterrupt(digitalPinToInterrupt(leftA), EncoderL, RISING);
-  attachInterrupt(digitalPinToInterrupt(leftB), EncoderBL, CHANGE);
-  leftBState = digitalRead(leftB);
+  attachInterrupt(digitalPinToInterrupt(leftA), EncodeTurnL, RISING);
   leftCounter = 0;
   Drive(100,-100);
   turningLeft = true;
   while(turningLeft){
-    Drive(0,0);
-    noInterrupts();
-    if(turningLeftCounter<=abs(leftCounter)){
-      detachInterrupt(digitalPinToInterrupt(leftA));
-      detachInterrupt(digitalPinToInterrupt(leftB));
-      Drive(0,0);
-    
-      turningLeft = false;
-      break;
-      }
-    interrupts();
-    Drive(125,-125);
-      }
+  }
+  detachInterrupt(digitalPinToInterrupt(leftA));
   
+  
+  }
+void EncodeTurnL(){
+  if(turningLeftCounter<=leftCounter){
+    noInterrupts();
+    Drive(0,0);
+    turningLeft = false;
+    interrupts();
+    }
+  else{
+    leftCounter++;
+    }
+  }
+
+void turnRight(){
+  attachInterrupt(digitalPinToInterrupt(rightA), EncodeTurnR, RISING);
+  
+  rightCounter = 0;
+  Drive(-100,100);
+  turningRight = true;
+  while(turningRight){
+  }
+  detachInterrupt(digitalPinToInterrupt(rightA));
+  
+  
+  }
+void EncodeTurnR(){
+  if(turningRightCounter<=rightCounter){
+    noInterrupts();
+    Drive(0,0);
+    turningRight = false;
+    interrupts();
+    }
+  else{
+    rightCounter++;
+    }
   }
 
 void EncoderR() { 

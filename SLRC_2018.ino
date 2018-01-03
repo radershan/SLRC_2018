@@ -45,7 +45,8 @@ int leftCounter =0;
 int rightCounter =0;
 int turningLeftCounter = 200;
 bool turningLeft = false;
-
+int turningRightCounter = 200;
+bool turningRight = false;
 
 void setup() {
 Serial.begin(9600);
