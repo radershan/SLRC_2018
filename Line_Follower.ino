@@ -6,7 +6,9 @@ void Qtr_Calibration()
   digitalWrite(13, HIGH);    
   for (int i = 0; i < 400; i++)  
   {
-    qtrrc.calibrate(); 
+
+    qtrrc.calibrate(QTR_EMITTERS_ON);       
+
   }
   digitalWrite(13, LOW);     
   /*for (int i = 0; i < NUM_SENSORS; i++)
@@ -28,7 +30,7 @@ void Qtr_Calibration()
   void Read_Line()
 {
   //  qtrrc.read(sensorValues); instead of unsigned int position = qtrrc.readLine(sensorValues);
-  unsigned int position = qtrrc.readLine(sensorValues);
+  unsigned int position = qtrrc.readLine(sensorValues,QTR_EMITTERS_ON,true);
   pos=position;
   /*for (unsigned char i = 0; i < NUM_SENSORS; i++)
   {

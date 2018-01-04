@@ -24,11 +24,16 @@ int echoPinR = 36;
 #define NUM_SENSORS   8     
 #define TIMEOUT       2500  
 #define EMITTER_PIN   2     
-QTRSensorsRC qtrrc((unsigned char[]) {39,41,43,45,47,49,51,53},
-  NUM_SENSORS, TIMEOUT, EMITTER_PIN); 
+QTRSensorsRC qtrrc((unsigned char[]) {39,41,43,45,47,49,51,53},NUM_SENSORS, TIMEOUT, EMITTER_PIN); 
 unsigned int sensorValues[NUM_SENSORS];
 
+int irSensorDigital[8] = {0,0,0,0,0,0,0,0};
+int treashold = 500; 
+int irSensors = B00000000; 
+int irSensorsL = B00000000; 
+
 int pos;
+int lPos;
 float lineError;
 float lineLastError;
 float lineKp=0.06;
@@ -54,11 +59,26 @@ volatile byte leftBState;
 int leftCounter =0;
 int rightCounter =0;
 int turningLeftCounter = 200;
-bool turningLeft = false;
+bool encoding = false;
 int turningRightCounter = 200;
-bool turningRight = false;
+int linePassCounter = 200;
+
+//Color Sensor
+#define S0 22
+#define S1 23
+#define S2 24
+#define S3 25
+#define sensorOut 26
+#define ledPin 27
+int currentColor[3] = {0,0,0};
+
+//Send Color
+#include <Wire.h>
+#define ANSWERSIZE 1
+String answer = "NONE!";
 
 void setup() {
+  
 Serial.begin(9600);
 //Switches
 pinMode(switch1,INPUT);
@@ -82,26 +102,40 @@ pinMode(trigPinR, OUTPUT);
 pinMode(echoPinR, INPUT);
 
 
-
-
-
 //Encoder
 pinMode(leftA,INPUT_PULLUP);
 pinMode(rightA,INPUT_PULLUP);
 pinMode(leftB,INPUT_PULLUP);
 pinMode(rightB,INPUT_PULLUP);
 
+//color sensor
+  pinMode(S0, OUTPUT);
+  pinMode(S1, OUTPUT);
+  pinMode(S2, OUTPUT);
+  pinMode(S3, OUTPUT);
+  pinMode(ledPin,OUTPUT);
+  pinMode(sensorOut, INPUT);
+  
+  // Setting frequency-scaling to 20%
+  digitalWrite(S0,HIGH);
+  digitalWrite(S1,LOW);
+  digitalWrite(ledPin,LOW);
+
 
 
 //Qtr_Calibration();
+
 }
 
 
 void loop() {
+
 
 //Drive(200,200);
 //Pid_Line();
 //delay(100);
 Wall_Follow();
 
+
 }
+
