@@ -63,8 +63,13 @@ int linePassCounter = 200;
 #define S2 24
 #define S3 25
 #define sensorOut 26
+#define ledPin 27
 int currentColor[3] = {0,0,0};
 
+//Send Color
+#include <Wire.h>
+#define ANSWERSIZE 1
+String answer = "NONE!";
 
 void setup() {
   
@@ -102,18 +107,20 @@ pinMode(rightB,INPUT_PULLUP);
   pinMode(S1, OUTPUT);
   pinMode(S2, OUTPUT);
   pinMode(S3, OUTPUT);
+  pinMode(ledPin,OUTPUT);
   pinMode(sensorOut, INPUT);
   
   // Setting frequency-scaling to 20%
   digitalWrite(S0,HIGH);
   digitalWrite(S1,LOW);
+  digitalWrite(ledPin,LOW);
 
 
 }
 
 
 void loop() {
-
-//Scan();
+DetectColor();
 
 }
+
