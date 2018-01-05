@@ -1,72 +1,138 @@
-void LinePass(){
-  attachInterrupt(digitalPinToInterrupt(leftA), EncodeLinePass, RISING);
+void TurnAround(){
+  attachInterrupt(digitalPinToInterrupt(leftA), EncodeTurnL, RISING);
   leftCounter = 0;
-  Drive(100,100);
+  leftSpeed =-100; 
+  rightSpeed =100; 
+  Drive();
   encoding = true;
   while(encoding){
+    Serial.println("In Around loop");
+    delay(10);
+  }
+  detachInterrupt(digitalPinToInterrupt(leftA));
+  
+  
+  }
+void EncodeTurnA(){
+  noInterrupts();
+  if(turningAroundCounter<=leftCounter){    
+    leftSpeed =0; 
+    rightSpeed =0; 
+    Drive();    
+    encoding = false;
+    }
+  else{
+    leftCounter++;
+    }
+  interrupts();
+  }
+  
+void LinePass(){
+ 
+  attachInterrupt(digitalPinToInterrupt(leftA), EncodeLinePass, RISING);
+  leftCounter = 0;
+  leftSpeed =100; 
+  rightSpeed =100; 
+  Drive();
+  encoding = true;
+  while(encoding){
+      Serial.println("In line loop");
+      delay(10);
   }
   detachInterrupt(digitalPinToInterrupt(leftA));
   
   
   }
 void EncodeLinePass(){
+  noInterrupts();
   if(turningLeftCounter<=leftCounter){
-    noInterrupts();
-    Drive(0,0);
+    leftSpeed =100; 
+    rightSpeed =100; 
+    Drive();
     encoding = false;
-    interrupts();
     }
   else{
     leftCounter++;
+    leftSpeed =140-leftCounter; 
+    rightSpeed =140-leftCounter; 
+    Drive();
     }
+  interrupts();
   }
 
 
 void TurnLeft(){
   attachInterrupt(digitalPinToInterrupt(leftA), EncodeTurnL, RISING);
   leftCounter = 0;
-  Drive(100,-100);
+  leftSpeed =-100; 
+  rightSpeed =100; 
+  Drive();
   encoding = true;
   while(encoding){
+    Serial.println("In Left loop");
+    delay(10);
   }
   detachInterrupt(digitalPinToInterrupt(leftA));
   
   
   }
 void EncodeTurnL(){
-  if(turningLeftCounter<=leftCounter){
-    noInterrupts();
-    Drive(0,0);
+  noInterrupts();
+  if(turningLeftCounter<=leftCounter){    
+    leftSpeed =0; 
+    rightSpeed =0; 
+    Drive();    
     encoding = false;
-    interrupts();
     }
   else{
     leftCounter++;
     }
+  interrupts();
+  }
+
+void TurnRightL(){
+  attachInterrupt(digitalPinToInterrupt(leftA), EncodeTurnL, RISING);
+  leftCounter = 0;
+  leftSpeed =100; 
+  rightSpeed =-100; 
+  Drive();
+  encoding = true;
+  while(encoding){
+    Serial.println("In Left loop");
+    delay(10);
+  }
+  detachInterrupt(digitalPinToInterrupt(leftA));
+  
+  
   }
 
 void TurnRight(){
   attachInterrupt(digitalPinToInterrupt(rightA), EncodeTurnR, RISING);
-  
   rightCounter = 0;
-  Drive(-100,100);
+  leftSpeed =100; 
+  rightSpeed =-100; 
+  Drive();
   encoding = true;
   while(encoding){
+    delay(10);
+    Serial.println("In right loop");
   }
   detachInterrupt(digitalPinToInterrupt(rightA));
   
   
   }
 void EncodeTurnR(){
+noInterrupts();
   if(turningRightCounter<=rightCounter){
-    noInterrupts();
-    Drive(0,0);
+    leftSpeed =0; 
+    rightSpeed =0; 
+    Drive();
     encoding = false;
-    interrupts();
     }
   else{
     rightCounter++;
     }
+ interrupts();
   }
 
 void EncoderR() { 

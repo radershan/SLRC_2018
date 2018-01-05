@@ -1,14 +1,14 @@
 //Swithces
-int switch1 = 8;
-int switch2 = 9;
-int switch3 =10;
+int switch1 = 14;
+int switch2 = 15;
+int switch3 =16;
 //Motor_Drive
 int leftMotorA =4;
 int leftMotorB =3;
 int leftMotorE =2;
-int rightMotorA =5;
-int rightMotorB =6;
-int rightMotorE =7;
+int rightMotorA =8;
+int rightMotorB =9;
+int rightMotorE =10;
 
 //UltraSonic
 int trigPinF = 35;
@@ -31,6 +31,8 @@ int irSensorDigital[8] = {0,0,0,0,0,0,0,0};
 int treashold = 500; 
 int irSensors = B00000000; 
 int irSensorsL = B00000000; 
+int leftSpeed =0; 
+int rightSpeed =0;
 
 int pos;
 int lPos;
@@ -58,10 +60,11 @@ volatile byte leftBState;
 
 int leftCounter =0;
 int rightCounter =0;
-int turningLeftCounter = 200;
+int turningLeftCounter = 175;
 bool encoding = false;
-int turningRightCounter = 200;
-int linePassCounter = 200;
+int turningRightCounter = 175;
+int turningAroundCounter = 330;
+int linePassCounter = 80;
 
 //Color Sensor
 #define S0 22
@@ -122,19 +125,17 @@ pinMode(rightB,INPUT_PULLUP);
   digitalWrite(ledPin,LOW);
 
 
-
+Serial.println("Calib...");
 Qtr_Calibration();
-
+Serial.println("Ready...");
 }
 
 
 void loop() {
+Scan();
+//Pid_Line();
 
-
-//Drive(200,200);
-Pid_Line();
-//delay(100);
-//Wall_Follow();
+UpdateLine();
 
 
 }

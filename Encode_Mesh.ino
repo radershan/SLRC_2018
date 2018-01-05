@@ -5,8 +5,8 @@ void Scan() {
   unsigned int position = qtrrc.readLine(sensorValues,QTR_EMITTERS_ON,true);
   pos=position;  
   for (int i = 0; i < NUM_SENSORS; i++) {
-    Serial.print(sensorValues[i]);
-    Serial.print(" | ");
+   /* Serial.print(sensorValues[i]);
+    Serial.print(" | ");*/
     if (sensorValues[i] <= treashold) {
         irSensorDigital[i] = 1;
     }
@@ -15,77 +15,94 @@ void Scan() {
       irSensors = irSensors + (irSensorDigital[
       i]<<b);
     } 
-    Serial.print('\t');
+    /*Serial.print('\t');
     Serial.print(irSensors,BIN);
     Serial.print('\t');
-    Serial.println(pos);
+    Serial.println(pos);*/
       
 }
 
-void Update(){
+void UpdateLine(){
   switch(irSensors){
     //Detecting Dead End
     case B00000000:
-    if(lPos < 2500){
+    if(lPos < 500){
       //turn right side
+      Pid_Line();
       }
-    else if (lPos > 4500){
+    else if (lPos > 6500){
       //turn left side
+      Pid_Line();
       }
     else{
       //Box detection
+      Break();
+      TurnAround();
       }
     break;
 
     //Detecting MazeEnd, T , + Junction
     case B11111111:
-       LinePass();
+       //LinePass();
+       Break();
        Scan();
        //MazeEnd
        if(irSensors == B11111111){
         //End of Maze
+         pinMode(13, OUTPUT);
+         digitalWrite(13, HIGH); 
         }
        //T or + Junction
        else{
+       
         TurnLeft();
        }
     break;
 
     //Detecting -| or left L
     case B11111100:
-       LinePass();
+        Break();
+      // LinePass();
        TurnLeft();
     break;
 
     case B11111000:
-       LinePass();
+        Break();
+       //LinePass();
        TurnLeft();
     break;
 
     //Detecting |- or right L
     case B00111111:
-       LinePass();
+       //LinePass();
+       Break();
        Scan();
        if(irSensors == B00000000){
+        
        TurnRight();
        }
        else{
+     
         Pid_Line();
        }
     break;
 
     case B00011111:
-       LinePass();
+      Break();
+      // LinePass();
        Scan();
        if(irSensors == B00000000){
+     
        TurnRight();
        }
        else{
+     
         Pid_Line();
        }
     break;
     
     default :
+    
     Pid_Line();
     
     }

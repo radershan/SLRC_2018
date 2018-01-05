@@ -1,4 +1,28 @@
-void Drive(int leftSpeed, int rightSpeed){
+void Break(){
+  leftSpeed =-255; 
+  rightSpeed =-255; 
+  Drive();
+  delay(10);
+  leftSpeed =0; 
+  rightSpeed =0; 
+  Drive();
+  delay(1000);
+  };
+
+void Drive(){
+  if(rightSpeed>0){
+    digitalWrite(rightMotorA,HIGH);
+    digitalWrite(rightMotorB,LOW);
+    }
+  else if(rightSpeed<0){
+    digitalWrite(rightMotorA,LOW);
+    digitalWrite(rightMotorB,HIGH);
+    }
+  else{
+    digitalWrite(rightMotorA,HIGH);
+    digitalWrite(rightMotorB,HIGH);
+    }
+  
   if(leftSpeed>0){
     digitalWrite(leftMotorA,HIGH);
     digitalWrite(leftMotorB,LOW);
@@ -12,18 +36,7 @@ void Drive(int leftSpeed, int rightSpeed){
     digitalWrite(leftMotorB,HIGH);
     }
 
-  if(rightSpeed>0){
-    digitalWrite(rightMotorA,HIGH);
-    digitalWrite(rightMotorB,LOW);
-    }
-  else if(rightSpeed<0){
-    digitalWrite(rightMotorA,LOW);
-    digitalWrite(rightMotorB,HIGH);
-    }
-  else{
-    digitalWrite(rightMotorA,HIGH);
-    digitalWrite(rightMotorB,HIGH);
-    }
+  
 
   
   if (leftSpeed==0 and rightSpeed == 0){
@@ -31,7 +44,8 @@ void Drive(int leftSpeed, int rightSpeed){
     digitalWrite(rightMotorE,HIGH);
     }
   else{
+    analogWrite(rightMotorE,abs(rightSpeed));
     analogWrite(leftMotorE,abs(leftSpeed));
-  analogWrite(rightMotorE,abs(rightSpeed));
+  
     }
   }
