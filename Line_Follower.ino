@@ -44,8 +44,8 @@ void Qtr_Calibration()
 void Pid_Line(){
   Read_Line();
   lineError=3200-pos;
- // Serial.print(lineError);
- // Serial.print('\t');
+ //Serial.print(lineError);
+  //Serial.print('\t');
  
   float espeed=(lineKp*lineError)+lineKd*(lineError-lineLastError);
   int rSpeed=initalspeed+espeed;
@@ -57,11 +57,11 @@ void Pid_Line(){
   if (lSpeed > MaxSpeed ) lSpeed = MaxSpeed; // prevent the motor from going beyond max speed
   if (rSpeed < MinSpeed) rSpeed = MinSpeed; // keep the motor speed positive
   if (lSpeed < MinSpeed) lSpeed = MinSpeed; // keep the motor speed 
- Serial.print(rSpeed);
- Serial.print("  ");
-  Serial.print(lSpeed);
+ //Serial.print(rSpeed);
+ //Serial.print("  ");
+  //Serial.print(lSpeed);
  // Serial.print('\t');
-  Serial.println();
+ // Serial.println();
   Drive(lSpeed,rSpeed);
   delay(10);
   Drive(0,0);

@@ -39,8 +39,8 @@ float lineLastError;
 float lineKp=0.06;
 float lineKd=4;
 int  initalspeed=100;
-int MaxSpeed =150;
-int MinSpeed=50;
+int MaxSpeed =200;
+int MinSpeed=0;
 
 //wallfollower
 float wallError;
@@ -123,7 +123,7 @@ pinMode(rightB,INPUT_PULLUP);
 
 
 
-//Qtr_Calibration();
+Qtr_Calibration();
 
 }
 
@@ -132,9 +132,9 @@ void loop() {
 
 
 //Drive(200,200);
-//Pid_Line();
+Pid_Line();
 //delay(100);
-Wall_Follow();
+//Wall_Follow();
 
 
 }
