@@ -1,7 +1,3 @@
-const int trigPin = 2;
-const int echoPin = 4;
-
-
 long Distance(int trigPin, int echoPin)
 {
   
