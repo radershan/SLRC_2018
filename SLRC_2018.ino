@@ -63,7 +63,6 @@ int linePassCounter = 200;
 #define S2 24
 #define S3 25
 #define sensorOut 26
-int frequency = 0;
 int currentColor[3] = {0,0,0};
 
 

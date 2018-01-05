@@ -1,4 +1,5 @@
 void SenseColor(){
+  int frequency = 0;
 // Setting red filtered photodiodes to be read
   digitalWrite(S2,LOW);
   digitalWrite(S3,LOW);
