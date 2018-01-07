@@ -9,9 +9,9 @@ bool waitForReply = false;
 //Buzzer
 int SPKR = 12;
 //Swithces
-int switch1 = 8;
-int switch2 = 9;
-int switch3 =10;
+int switch1 = 14;
+int switch2 = 15;
+int switch3 =16;
 //Motor_Drive
 int leftMotorA =4;
 int leftMotorB =3;
@@ -27,7 +27,8 @@ int trigPinL = 33;
 int echoPinL = 32;
 int trigPinR = 37;
 int echoPinR = 36;
-
+int trigPinE = 31;
+int echoPinE = 30;
 
  //Line_Follower
 #include <QTRSensors.h>
@@ -113,7 +114,8 @@ pinMode(trigPinL, OUTPUT);
 pinMode(echoPinL, INPUT);
 pinMode(trigPinR, OUTPUT);
 pinMode(echoPinR, INPUT);
-
+pinMode(trigPinE, OUTPUT);
+pinMode(echoPinE, INPUT);
 
 //Encoder
 pinMode(leftA,INPUT_PULLUP);
@@ -139,15 +141,17 @@ Wire.begin(9);
 Wire.onRequest(requestEvent); // data request to slave
 Wire.onReceive(receiveEvent); // data slave received
 
+
 Serial.println("Calib...");
-//Qtr_Calibration();
+ Qtr_Calibration();
 Serial.println("Ready...");
+
 }
 
 
 void loop() {
-DetectColor();
-delay(5000);
+Scan();
+UpdateLine();  
 
 }
 
