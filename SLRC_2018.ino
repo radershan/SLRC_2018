@@ -1,14 +1,24 @@
+//Node MCU Toggle Pin
+int sendRequest = 15;
+#include <Wire.h>
+#define ANSWERSIZE 4
+String answer = "NONE";
+bool waitForReply = false;
+
+
+//Buzzer
+int SPKR = 12;
 //Swithces
-int switch1 = 14;
-int switch2 = 15;
-int switch3 =16;
+int switch1 = 8;
+int switch2 = 9;
+int switch3 =10;
 //Motor_Drive
 int leftMotorA =4;
 int leftMotorB =3;
 int leftMotorE =2;
-int rightMotorA =8;
-int rightMotorB =9;
-int rightMotorE =10;
+int rightMotorA =5;
+int rightMotorB =6;
+int rightMotorE =7;
 
 //UltraSonic
 int trigPinF = 35;
@@ -51,10 +61,10 @@ float wallKp=0.06;
 float wallKd=5;
 
 //Encoder
-int leftA =20;
-int leftB =21;
+int leftA =19;
+int leftB =17;
 int rightA =18;
-int rightB =19;
+int rightB =16;
 volatile byte rightBState;
 volatile byte leftBState;
 
@@ -75,14 +85,14 @@ int linePassCounter = 80;
 #define ledPin 27
 int currentColor[3] = {0,0,0};
 
-//Send Color
-#include <Wire.h>
-#define ANSWERSIZE 1
-String answer = "NONE!";
+
+
 
 void setup() {
   
 Serial.begin(9600);
+pinMode(SPKR,OUTPUT);
+pinMode(sendRequest,OUTPUT);
 //Switches
 pinMode(switch1,INPUT);
 pinMode(switch2,INPUT);
@@ -124,19 +134,20 @@ pinMode(rightB,INPUT_PULLUP);
   digitalWrite(S1,LOW);
   digitalWrite(ledPin,LOW);
 
+//I2C
+Wire.begin(9);
+Wire.onRequest(requestEvent); // data request to slave
+Wire.onReceive(receiveEvent); // data slave received
 
 Serial.println("Calib...");
-Qtr_Calibration();
+//Qtr_Calibration();
 Serial.println("Ready...");
 }
 
 
 void loop() {
-Scan();
-//Pid_Line();
-
-UpdateLine();
-
+DetectColor();
+delay(5000);
 
 }
 

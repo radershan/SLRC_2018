@@ -1,13 +1,12 @@
-void SendColor(String color){
-  answer = color;
-  Wire.begin(9);
-  Wire.onRequest(requestEvent);
-  Serial.print("Sending Color");
-  pinMode(10,OUTPUT);
-  digitalWrite(10,HIGH);
-  delay(100);
-  digitalWrite(10,LOW);
-  
+void receiveEvent(int countToRead) {
+  while (0 < Wire.available()) {
+    byte x = Wire.read();
+    Serial.println(x);
+  }
+  waitForReply = false;
+  digitalWrite(sendRequest,LOW);
+  Serial.println("Receive event");
+  Buzzer();
 }
 
 void requestEvent() {
@@ -18,4 +17,6 @@ void requestEvent() {
   Wire.write(response,sizeof(response));
   Serial.println("Request event");
 }
+
+
 

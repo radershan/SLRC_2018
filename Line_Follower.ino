@@ -1,4 +1,3 @@
-
 void Qtr_Calibration()
 {
   delay(500);
@@ -22,13 +21,13 @@ void Qtr_Calibration()
   //  qtrrc.read(sensorValues); instead of unsigned int position = qtrrc.readLine(sensorValues);
   unsigned int position = qtrrc.readLine(sensorValues,QTR_EMITTERS_ON,true);
   pos=position;
-  /*for (unsigned char i = 0; i < NUM_SENSORS; i++)
+  for (unsigned char i = 0; i < NUM_SENSORS; i++)
   {
     Serial.print(sensorValues[i]);
     Serial.print('\t');
   }
   Serial.println(position); 
-  delay(250);*/
+  delay(250);
 }
 
 void Pid_Line(){
