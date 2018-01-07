@@ -4,13 +4,17 @@ void Wall_Follow(){
  int frontDis=Distance(trigPinF,echoPinF);
  Serial.println(frontDis);
  if (frontDis<=1000){
-  Drive(-60,60);
+  leftSpeed =-60; 
+  rightSpeed =60; 
+  Drive();
   Serial.println("klk");
  }
  else{
  wallError=dis -650;
  int wallValue=wallKp*wallError+wallKd*(wallError-wallLastError);
-  Drive(100+wallValue,100-wallValue);
+ leftSpeed =100+wallValue; 
+ rightSpeed =100-wallValue; 
+  Drive();
 wallLastError=wallError;
  }
 }
