@@ -1,7 +1,7 @@
 //Swithces
-int switch1 = 8;
-int switch2 = 9;
-int switch3 =10;
+int switch1 = 14;
+int switch2 = 15;
+int switch3 =16;
 //Motor_Drive
 int leftMotorA =4;
 int leftMotorB =3;
@@ -17,7 +17,8 @@ int trigPinL = 33;
 int echoPinL = 32;
 int trigPinR = 37;
 int echoPinR = 36;
-
+int trigPinE = 31;
+int echoPinE = 30;
 
  //Line_Follower
 #include <QTRSensors.h>
@@ -100,7 +101,8 @@ pinMode(trigPinL, OUTPUT);
 pinMode(echoPinL, INPUT);
 pinMode(trigPinR, OUTPUT);
 pinMode(echoPinR, INPUT);
-
+pinMode(trigPinE, OUTPUT);
+pinMode(echoPinE, INPUT);
 
 //Encoder
 pinMode(leftA,INPUT_PULLUP);
@@ -123,18 +125,15 @@ pinMode(rightB,INPUT_PULLUP);
 
 
 
-Qtr_Calibration();
+//Qtr_Calibration();
 
 }
 
 
 void loop() {
 
-
-//Drive(200,200);
-Pid_Line();
-//delay(100);
-//Wall_Follow();
+Wall_Follow1();
+Serial.println();
 
 
 }
