@@ -8,12 +8,10 @@ bool waitForReply = false;
 
 //Buzzer
 int SPKR = 12;
-
 //Swithces
 int switch1 = 14;
 int switch2 = 15;
 int switch3 =16;
-
 //Motor_Drive
 int leftMotorA =4;
 int leftMotorB =3;
@@ -25,16 +23,14 @@ int rightMotorE =7;
 //UltraSonic
 int trigPinF = 35;
 int echoPinF = 34;
-int trigPinLF = 33;
-int echoPinLF = 32;
-int trigPinRF = 37;
-int echoPinRF = 36;
-int trigPinLB = 31;
-int echoPinLB = 30;
-int trigPinRB = 29;
-int echoPinRB = 28;
+int trigPinL = 33;
+int echoPinL = 32;
+int trigPinR = 37;
+int echoPinR = 36;
+int trigPinE = 31;
+int echoPinE = 30;
 
-//Line_Follower
+ //Line_Follower
 #include <QTRSensors.h>
 #define NUM_SENSORS   8     
 #define TIMEOUT       2500  
@@ -66,7 +62,7 @@ float wallKp=0.06;
 float wallKd=5;
 
 float disKp=16;
-float disKd=11;
+float disKd=50;
 float disLastError=0;
 float disCorrection=0;
 int disError=0;
@@ -74,7 +70,7 @@ int disError=0;
 float angleCorrection=0;
 int lastAngle=0;
 float angKp=13;
-float angKd=15;
+float angKd=50;
 int angle=0;
 int drive=0;
 
@@ -127,14 +123,12 @@ pinMode(rightMotorE,OUTPUT);
 //UltraSonic
 pinMode(trigPinF, OUTPUT);
 pinMode(echoPinF, INPUT);
-pinMode(trigPinLF, OUTPUT);
-pinMode(echoPinLF, INPUT);
-pinMode(trigPinRF, OUTPUT);
-pinMode(echoPinRF, INPUT);
-pinMode(trigPinLB, OUTPUT);
-pinMode(echoPinLB, INPUT);
-pinMode(trigPinRB, OUTPUT);
-pinMode(echoPinRB, INPUT);
+pinMode(trigPinL, OUTPUT);
+pinMode(echoPinL, INPUT);
+pinMode(trigPinR, OUTPUT);
+pinMode(echoPinR, INPUT);
+pinMode(trigPinE, OUTPUT);
+pinMode(echoPinE, INPUT);
 
 //Encoder
 pinMode(leftA,INPUT_PULLUP);
@@ -172,6 +166,6 @@ void loop() {
 //  Scan();
 //UpdateLine();
 Wall_following();
-//TestUltraSonic();
+
 }
 

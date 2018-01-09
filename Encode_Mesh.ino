@@ -24,6 +24,7 @@ void Scan() {
 
 void UpdateLine(){
   switch(irSensors){
+    Break();
     //Detecting Dead End
     case B00000000:
     if(lPos < 500){
@@ -36,7 +37,7 @@ void UpdateLine(){
       }
     else{
       //Box detection
-      Break();
+      
       TurnAround();
       }
     break;
