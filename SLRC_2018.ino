@@ -62,19 +62,19 @@ int MinSpeed=0;
 //wallfollower
 float wallError;
 float wallLastError;
-float wallKp=0.06;
-float wallKd=5;
+float wallKp=6;
+float wallKd=500;
 
-float disKp=16;
-float disKd=11;
+float disKp= 6  ;  //20;
+float disKd=500;
 float disLastError=0;
 float disCorrection=0;
-int disError=0;
+float disError=0;
 
 float angleCorrection=0;
 int lastAngle=0;
-float angKp=13;
-float angKd=15;
+float angKp=16;
+float angKd=26;
 int angle=0;
 int drive=0;
 
@@ -169,9 +169,16 @@ Serial.println("Ready...");
 
 
 void loop() {
-//  Scan();
-//UpdateLine();
-Wall_following();
-//TestUltraSonic();
+if (digitalRead(switch1)==HIGH){
+  TestUltraSonic();
+
+}
+else{
+  //Wall_followRight();
+  //wall();
+  Wall_Follow();
+  Serial.println();
+}
+
 }
 
