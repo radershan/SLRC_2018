@@ -2,14 +2,21 @@ void TestUltraSonic(){
   Serial.print("Front : ");
   Serial.print(Distance(trigPinF, echoPinF));
   Serial.print('\t');
-  Serial.print("Left : ");
-  Serial.print(Distance(trigPinL, echoPinL));
+  Serial.print("LeftF : ");
+  Serial.print(Distance(trigPinLF, echoPinLF));
   Serial.print('\t');
-  Serial.print("Right : ");
-  Serial.print(Distance(trigPinR, echoPinR));
+  Serial.print("LeftB : ");
+  Serial.print(Distance(trigPinLB, echoPinLB));
+  Serial.print('\t');
+  Serial.print("RightF : ");
+  Serial.print(Distance(trigPinRF, echoPinRF));
+  Serial.print('\t');
+  Serial.print("RightB : ");
+  Serial.print(Distance(trigPinRB, echoPinRB));
   Serial.println('\t');
   }
-long Distance(int trigPin, int echoPin)
+
+float Distance(int trigPin, int echoPin)
 {
   
   digitalWrite(trigPin, LOW);
@@ -18,9 +25,14 @@ long Distance(int trigPin, int echoPin)
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
 
-  long duration = pulseIn(echoPin, HIGH);
-  long cm = MicrosecondsToCentimeters(duration);
-  
+  float duration = pulseIn(echoPin, HIGH);
+  //long cm = MicrosecondsToCentimeters(duration);
+   float dist=duration/58.2;
+   
+  if (dist==0.0||dist>=240.0){
+    dist=4000.0;
+  }
+  return dist;
 }
 
 
@@ -32,11 +44,13 @@ long MicrosecondsToCentimeters(long microseconds)
   return microseconds / 29 / 2;
 }
 
+
+
 void Buzzer(){
   for (int i=0; i<250; i++) {  // generate a 1KHz tone for 1/2 second
  digitalWrite(SPKR, HIGH);
  delayMicroseconds(1000);
   digitalWrite(SPKR, LOW);
   delayMicroseconds(500);
- }
+  }
   }

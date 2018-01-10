@@ -1,12 +1,14 @@
 void TurnAround(){
-  attachInterrupt(digitalPinToInterrupt(leftA), EncodeTurnL, RISING);
+//  interr
+  attachInterrupt(digitalPinToInterrupt(leftA), EncodeTurnA, RISING);
   leftCounter = 0;
   leftSpeed =-100; 
   rightSpeed =100; 
   Drive();
   encoding = true;
   while(encoding){
-    Serial.println("In Around loop");
+    Serial.println("In turning around");
+    
     delay(10);
   }
   detachInterrupt(digitalPinToInterrupt(leftA));
