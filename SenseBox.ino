@@ -35,12 +35,7 @@ void DetectColor(){
    Serial.println("BLUE");
    answer = "BLUE";
     }
-  interrupts();
-  delay(10);
-  digitalWrite(sendRequest,HIGH);
-  delay(500);
-  digitalWrite(sendRequest,LOW);
-
+ 
   digitalWrite(ledPin,LOW);
   }
 

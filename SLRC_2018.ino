@@ -1,10 +1,6 @@
-//Node MCU Toggle Pin
-int sendRequest = 15;
-#include <Wire.h>
-#define ANSWERSIZE 4
-String answer = "NONE";
-bool waitForReply = false;
-
+#include <SoftwareSerial.h>
+SoftwareSerial BTserial(10, 11);
+String answer ;
 
 //Buzzer
 int SPKR = 12;
@@ -15,12 +11,12 @@ int switch2 = 15;
 int switch3 =16;
 
 //Motor_Drive
-int leftMotorA =4;
-int leftMotorB =3;
-int leftMotorE =2;
-int rightMotorA =5;
-int rightMotorB =6;
-int rightMotorE =7;
+int leftMotorA =5;
+int leftMotorB =6;
+int leftMotorE =7;
+int rightMotorA =4;
+int rightMotorB =3;
+int rightMotorE =2;
 
 //UltraSonic
 int trigPinF = 35;
@@ -103,14 +99,16 @@ int linePassCounter = 80;
 #define ledPin 27
 int currentColor[3] = {0,0,0};
 
-
+byte state = 0;
+bool endMaze = false;
+bool endWall = false;
 
 
 void setup() {
   
 Serial.begin(9600);
 pinMode(SPKR,OUTPUT);
-pinMode(sendRequest,OUTPUT);
+              
 //Switches
 pinMode(switch1,INPUT);
 pinMode(switch2,INPUT);
@@ -155,30 +153,76 @@ pinMode(rightB,INPUT_PULLUP);
   digitalWrite(S1,LOW);
   digitalWrite(ledPin,LOW);
 
-//I2C
-Wire.begin(9);
-Wire.onRequest(requestEvent); // data request to slave
-Wire.onReceive(receiveEvent); // data slave received
-
-
-/*Serial.println("Calib...");
- Qtr_Calibration();
-Serial.println("Ready...");
-*/
-}
-
-
-void loop() {
-if (digitalRead(switch1)==HIGH){
-  TestUltraSonic();
-
-}
-else{
-  //Wall_followRight();
-  //wall();
-  Wall_Follow();
-  Serial.println();
-}
+BTserial.begin(9600); 
 
 }
 
+
+void loop() { 
+  
+ switch (state){
+  case 1:
+  while(!endMaze){
+    Scan();
+    UpdateLine();    
+    }
+  while(!endWall){
+    //Follow Wall
+    }
+  DistanceMeasure();
+  
+  break;
+  
+  case 2:
+  
+  break;
+
+  case 3:
+
+  break;
+
+  default:
+  Qtr_Calibration();
+  Buzzer();
+  while(!endMaze){
+    Scan();
+    UpdateLine();    
+    }
+  while(!endWall){
+    //Follow Wall
+    }
+  DistanceMeasure();
+}
+
+}
+
+
+void StateChange(){
+  if(digitalRead(switch1)==HIGH and digitalRead(switch2)==HIGH){
+    state = 3;
+    }
+  else if(digitalRead(switch1)==HIGH and digitalRead(switch2)==LOW){
+    state = 2;
+    }
+  else if(digitalRead(switch1)==LOW and digitalRead(switch2)==HIGH){
+    state = 1;
+    }
+  else{
+    state = 0;
+    }
+  
+  }
+
+void SendData(){
+  for (byte i=0;i<9;i++) {
+    BTserial.write(answer.charAt(i));
+  }
+  
+  BTserial.write('\n');
+  int inChar =0;
+  while(inChar == 0){
+    if(BTserial.available() > 0){
+    inChar = BTserial.read();
+    }
+    }
+  }
