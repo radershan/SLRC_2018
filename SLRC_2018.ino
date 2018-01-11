@@ -10,9 +10,9 @@ bool waitForReply = false;
 int SPKR = 12;
 
 //Swithces
-int switch1 = 14;
-int switch2 = 15;
-int switch3 =16;
+int switch1 = 10;
+int switch2 = 9;
+int switch3 =8;
 
 //Motor_Drive
 int leftMotorA =4;
@@ -63,10 +63,10 @@ int MinSpeed=0;
 float wallError;
 float wallLastError;
 float wallKp=6;
-float wallKd=500;
+float wallKd=400;
 
-float disKp= 6  ;  //20;
-float disKd=500;
+float disKp= 20  ;  //20;
+float disKd=26;
 float disLastError=0;
 float disCorrection=0;
 float disError=0;
@@ -161,24 +161,16 @@ Wire.onRequest(requestEvent); // data request to slave
 Wire.onReceive(receiveEvent); // data slave received
 
 
-/*Serial.println("Calib...");
+Serial.println("Calib...");
  Qtr_Calibration();
 Serial.println("Ready...");
-*/
+
 }
 
 
 void loop() {
-if (digitalRead(switch1)==HIGH){
-  TestUltraSonic();
 
-}
-else{
-  //Wall_followRight();
-  //wall();
-  Wall_Follow();
-  Serial.println();
-}
-
+Scan();
+UpdateLine();
 }
 
