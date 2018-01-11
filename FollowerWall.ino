@@ -2,108 +2,61 @@
 void Wall_FollowR(){
  int dis1 =Distance(trigPinRF,echoPinRF);
  int dis2 =Distance(trigPinRB,echoPinRB);
- int dis=Cal_Distance(dis1,dis2);
- int frontDis=Distance(trigPinF,echoPinF);
- int angle=dis1-dis2;
- Serial.print(frontDis);
- Serial.print('\t');
- Serial.print(dis1);
- Serial.print('\t');
-  Serial.print(dis2);
- Serial.print('\t');
- Serial.print(dis);
- Serial.print('\t');
-  Serial.print(angle);
- Serial.print('\t');
- if (frontDis<=20){
-  //TurnLeft();
-  leftSpeed =-70; 
-  rightSpeed =70; 
-  Drive();
-  delay(100);
-  Serial.print('\t');
-  Serial.print("front");
- }
- /*else if (angle<=-50){
-  while(angle>-50){
-    leftSpeed =-50; 
-  }
-  rightSpeed =50; 
-  Drive();
- }*/
- else if (angle>=40 && angle <=200){
-  //Break();
-  Serial.print('\t');
-  Serial.print("close");
-  leftSpeed =abs(60+0.6*(200-angle)); 
-  rightSpeed =abs(60-0.6*(200-angle)); 
-  Drive();
-  //delay(5);
- }
- else{
- wallError=dis -12;
- int wallValue=wallKp*wallError+wallKd*(wallError-wallLastError);
- leftSpeed =70+wallValue; 
- rightSpeed =70-wallValue; 
- if (rightSpeed<0) rightSpeed=0;
- if (leftSpeed<0) leftSpeed=0;
-  Drive();
-wallLastError=wallError;
- }
-}
+ float dis=Cal_Distance(dis1,dis2);
+ float frontDis=Distance(trigPinF,echoPinF);
 
-void Wall_FollowL(){
- int dis1 =Distance(trigPinLF,echoPinLF);
- int dis2 =Distance(trigPinLB,echoPinLB);
- int dis=Cal_Distance(dis1,dis2);
- int frontDis=Distance(trigPinF,echoPinF);
  int angle=dis1-dis2;
- Serial.print(frontDis);
- Serial.print('\t');
- Serial.print(dis1);
- Serial.print('\t');
-  Serial.print(dis2);
- Serial.print('\t');
- Serial.print(dis);
- Serial.print('\t');
-  Serial.print(angle);
- Serial.print('\t');
- if (frontDis<=20){
-  //TurnLeft();
-  leftSpeed =70; 
-  rightSpeed =-70; 
-  Drive();
-  delay(100);
-  Serial.print('\t');
-  Serial.print("front");
- }
- /*else if (angle<=-50){
-  while(angle>-50){
-    leftSpeed =-50; 
-  }
-  rightSpeed =50; 
-  Drive();
- }*/
- else if (angle>=40 && angle <=200){
+ 
+ 
+ if(dis1 !=4000 || dis2 !=4000 ){
+  /*if (dis1>=100){
+ 
   //Break();
-  Serial.print('\t');
-  Serial.print("close");
-  leftSpeed =abs(60-0.6*(200-angle)); 
-  rightSpeed =abs(60+0.6*(200-angle)); 
+ /*Serial.print('\t');
+  Serial.print("close");*/
+  /*leftSpeed =abs(60+0.4*(dis1-100)); 
+  rightSpeed =abs(60-0.4*(dis1-100)); 
   Drive();
   //delay(5);
+ }*/
+/*else if(angle>=50){
+  Buzzer();
+  leftSpeed =abs(60+0.5*(angle-50));
+  rightSpeed =abs(60-0.5*(angle-50)); 
+  Drive();
+ 
  }
- else{
- wallError=dis -12;
+ else if(angle<=2){
+  leftSpeed =60-20*(2-angle); 
+  rightSpeed =60+20*(2-angle); 
+  Drive();
+ }*/
+  
+ //else{
+ wallError=dis -11;
+ /*Serial.print(wallError);
+ Serial.print('\t');
+ Serial.print("pid");*/
  int wallValue=wallKp*wallError+wallKd*(wallError-wallLastError);
- leftSpeed =70-wallValue; 
- rightSpeed =70+wallValue; 
+/* Serial.print('\t');
+ Serial.print(wallValue);*/
+ leftSpeed =100+wallValue; 
+ rightSpeed =100-wallValue; 
  if (rightSpeed<0) rightSpeed=0;
  if (leftSpeed<0) leftSpeed=0;
   Drive();
+ /* Serial.print('\t');
+ Serial.print(leftSpeed);
+ Serial.print('\t');
+ Serial.print(rightSpeed);*/
+ 
 wallLastError=wallError;
+ //}
  }
-}
+ 
+ }
+
+
 
 
 
@@ -147,26 +100,15 @@ Serial.print('\t');
    lastAngle = angle;
 
    drive = disCorrection + angleCorrection;
-  leftSpeed=0;
-    rightSpeed=0;
-    Drive();
-    delay(5);
-   /*if (drive<=0) {
+  
+   if (drive<=0) {
     drive=(-1*drive);
-   }*/
+   }
    if (drive>=100) {
     drive=100 ;
    }
-   leftSpeed =60-drive; 
-   rightSpeed =60+drive;
- /* if (rightSpeed > 160 ) rightSpeed = 160; 
-  if (leftSpeed > 160 ) leftSpeed = 160; 
-  if (rightSpeed < 0) rightSpeed = 0; 
-  if (leftSpeed < 0) leftSpeed = 0;*/
-   Drive();
-
-    }
-   /*
+  
+    
    if (dis<=interDistance-2){
     Serial.print("1");
       if (angle<5){
@@ -218,7 +160,7 @@ Serial.print('\t');
   if (leftSpeed < 0) leftSpeed = 0;
    Drive();
   
-   */
+   
    }
    Serial.println();
    }
@@ -234,7 +176,7 @@ void Wall_followRight(){
     //Serial.println(dis3);
     if (dis3<=15){
       Buzzer();
-      break;
+      //break;
     }
  /* Serial.print(front);
   Serial.print('\t');
@@ -275,8 +217,8 @@ void Wall_followRight(){
   /* if (drive>=100) {
     drive=100 ;
    }*/
-   leftSpeed =100; 
-   rightSpeed =100;
+   leftSpeed =70; 
+   rightSpeed =70;
 
 
    
@@ -330,16 +272,13 @@ void Wall_followRight(){
    
    
    }
-  if (rightSpeed > 200 ) rightSpeed = 200; 
-  if (leftSpeed > 200 ) leftSpeed = 200;
+  if (rightSpeed > 120 ) rightSpeed = 120; 
+  if (leftSpeed > 120 ) leftSpeed = 120;
   if (rightSpeed < 0) rightSpeed = 0; 
   if (leftSpeed < 0) leftSpeed =0 ;
  
    Drive();
-   delay(50);
-   leftSpeed=0;
-   rightSpeed=0;
-   Drive();
+  
    }
    Serial.println();
    }
