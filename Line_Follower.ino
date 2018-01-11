@@ -46,11 +46,11 @@ void Pid_Line(){
   if (leftSpeed > MaxSpeed ) leftSpeed = MaxSpeed; // prevent the motor from going beyond max speed
   if (rightSpeed < MinSpeed) rightSpeed = MinSpeed; // keep the motor speed positive
   if (leftSpeed < MinSpeed) leftSpeed = MinSpeed; // keep the motor speed 
- //Serial.print(rSpeed);
- //Serial.print("  ");
-  //Serial.print(lSpeed);
- // Serial.print('\t');
- // Serial.println();
+ Serial.print(rightSpeed);
+ Serial.print("  ");
+  Serial.print(leftSpeed);
+  Serial.print('\t');
+  Serial.println();
   Drive();
  delay(40);
  rightSpeed=0;

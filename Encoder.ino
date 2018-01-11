@@ -169,4 +169,7 @@ void EncoderBR(){
 
   rightBState = !rightBState;
   }
+void EncodeDistance(){
+  leftCounter++;
+  }
 

@@ -15,10 +15,12 @@ void Scan() {
       irSensors = irSensors + (irSensorDigital[
       i]<<b);
     } 
-    /*Serial.print('\t');
+   Serial.print('\t');
     Serial.print(irSensors,BIN);
     Serial.print('\t');
-    Serial.println(pos);*/
+    Serial.println(pos);
+
+    
       
 }
 
@@ -37,7 +39,7 @@ void UpdateLine(){
       }
     else{
       //Box detection
-      
+      Buzzer();
       TurnAround();
       }
     break;
