@@ -53,9 +53,6 @@ void Pid_Line(){
   Serial.println();
   Drive();
  delay(40);
- rightSpeed=0;
-  leftSpeed=0;
- Drive();
   //Drive(200,200);
   
   

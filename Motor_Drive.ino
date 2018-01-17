@@ -3,7 +3,7 @@ void MotorTest(){
     leftSpeed = i;
     rightSpeed = i;
     Drive();
-    delay(100);
+    delay(10);
     }
   Break();
   for(int i =255; i>=0;i--){
@@ -17,7 +17,7 @@ void Break(){
   leftSpeed =-255; 
   rightSpeed =-255; 
   Drive();
-  delay(10);
+  delay(50);
   leftSpeed =0; 
   rightSpeed =0; 
   Drive();
@@ -34,8 +34,8 @@ void Drive(){
     digitalWrite(rightMotorB,HIGH);
     }
   else{
-    digitalWrite(rightMotorA,LOW);
-    digitalWrite(rightMotorB,LOW);
+    digitalWrite(rightMotorA,HIGH);
+    digitalWrite(rightMotorB,HIGH);
     }
   
   if(leftSpeed>0){
@@ -47,8 +47,8 @@ void Drive(){
     digitalWrite(leftMotorB,HIGH);
     }
   else{
-    digitalWrite(leftMotorA,LOW);
-    digitalWrite(leftMotorB,LOW);
+    digitalWrite(leftMotorA,HIGH);
+    digitalWrite(leftMotorB,HIGH);
     }
 
   

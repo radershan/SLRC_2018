@@ -17,5 +17,5 @@ void DistanceMeasure(){
     Scan();
     Pid_Line();
     }
-  
+  detachInterrupt(digitalPinToInterrupt(leftA));
   }

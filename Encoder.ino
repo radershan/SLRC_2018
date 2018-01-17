@@ -71,7 +71,7 @@ void TurnLeft(){
   Drive();
   encoding = true;
   while(encoding){
-    Serial.println("In Left loop");
+    Serial.println("In around loop");
     delay(10);
   }
   detachInterrupt(digitalPinToInterrupt(leftA));

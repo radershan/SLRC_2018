@@ -1,41 +1,41 @@
 void DetectBox(){
-  if(Distance(trigPinF,echoPinF)<=100){
-    
+  if(Distance(trigPinF,echoPinF)<=10){
+    DetectColor();
     }
   }
 
   
 void DetectColor(){
   digitalWrite(ledPin,HIGH);
-   Serial.println("Detecting Color");
+ //  Serial.println("Detecting Color");
   SenseRGB();
   while(currentColor[0]==0 or currentColor[1]==0 or currentColor[2]==0){
     SenseRGB();
-    Serial.println("No color");
+ //   Serial.println("No color");
     }
-  Serial.print(currentColor[0]);
+/*/  Serial.print(currentColor[0]);
   Serial.print('\t');
   Serial.print(currentColor[1]);
   Serial.print('\t');
   Serial.print(currentColor[2]);
-  Serial.println('\t');
+  Serial.println('\t');*/
   
   if(currentColor[0] < currentColor[1] and currentColor[0] < currentColor[2]){
     //Red
-    Serial.println("RED");
-    answer = "RED!";
+  //  Serial.println("RED");
+    answer = "273 085 2";
     }
   else if(currentColor[1] < currentColor[0] and currentColor[1] < currentColor[2]){
     //Green
-    Serial.println("GREEN");
-   answer = "GREE";
+  //  Serial.println("GREEN");
+   answer = "210 080 2";
     }
   else{
     //Blue
-   Serial.println("BLUE");
-   answer = "BLUE";
+  // Serial.println("BLUE");
+   answer = "047 082 2";;
     }
- 
+ // SendData();
   digitalWrite(ledPin,LOW);
   }
 

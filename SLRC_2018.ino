@@ -51,9 +51,9 @@ float lineError;
 float lineLastError;
 float lineKp=0.06;
 float lineKd=4;
-int  initalspeed=100;
-int MaxSpeed =200;
-int MinSpeed=0;
+int  initalspeed=50;
+int MaxSpeed =120;
+int MinSpeed=-20;
 
 //wallfollower
 float wallError;
@@ -153,7 +153,7 @@ pinMode(rightB,INPUT_PULLUP);
   digitalWrite(S1,LOW);
   digitalWrite(ledPin,LOW);
 
-BTserial.begin(9600); 
+//BTserial.begin(9600); 
 
 
 }
@@ -161,7 +161,7 @@ BTserial.begin(9600);
 
 
 
-void loop() { 
+void loop() {
   
  switch (state){
   case 1:
@@ -222,10 +222,14 @@ void SendData(){
   }
   
   BTserial.write('\n');
-  int inChar =0;
+  BTserial.flush();
+  
+int inChar = 0;
   while(inChar == 0){
+    BTserial.flush();
     if(BTserial.available() > 0){
     inChar = BTserial.read();
+    BTserial.flush();
     }
     }
   }
